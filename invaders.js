@@ -4,7 +4,9 @@ $(function() {
   var height = $(window).height();
   var width = $(window).width();
 
-  var game = new Phaser.Game(width, height, Phaser.WEBGL, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+  var game = new Phaser.Game(width, height , Phaser.WEBGL, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+  // game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+  // game.stage.scaleMode = Phaser.ScaleManager.SHOW_ALL; //resize your window to see the stage resize toogame.stage.scale.setShowAll();game.stage.scale.refresh();
 
 
   function resizeGame() {
@@ -88,7 +90,7 @@ $(function() {
 
     //  The hero!
     player = game.add.sprite(game.width/2, game.height * 0.8, 'ship');
-    player.width = game.width * 0.1;
+    player.width = Math.min(game.width, game.height) * 0.1;
     player.height = player.width;
     player.anchor.setTo(0.5, 0.5);
     game.physics.enable(player, Phaser.Physics.ARCADE);
@@ -206,7 +208,7 @@ $(function() {
 
     let config = configGen();
 
-    let size = game.width * 0.08;
+    let size =  Math.min(game.width, game.height) * 0.08;
     for (var row = 0; row < config.length; row++)
     {
       let rowVal = config[row];
@@ -251,8 +253,6 @@ $(function() {
     aliens.y += 10;
 
   }
-
-  let lastDirection;
   function update() {
 
     //  Scroll the background
@@ -268,16 +268,13 @@ $(function() {
 
       if (game.input.pointer1.isDown) {
         if (game.input.pointer1.x < game.width/2) {
-          lastDirection = -1;
           player.body.velocity.x = -speed;
           player.body.angularVelocity = -rotationSpeed;
         } else if (game.input.pointer1.x > game.width/2) {
-          lastDirection = 1;
           player.body.angularVelocity = rotationSpeed;
 
           player.body.velocity.x = speed;
         } else {
-          lastDirection = 0;
           player.body.angularVelocity = 0;
         }
       } else {
