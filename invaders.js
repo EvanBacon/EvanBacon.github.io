@@ -16,8 +16,10 @@ $(function() {
               gyro.startTracking((o) => {
                    // updating player velocity
                    if (player != undefined) {
-                     let amount =  Math.min(speed, Math.max(-speed, o.gamma/20));
-                   player.body.velocity.x += amount
+                     player.body.velocity.setTo(0, 0);
+
+                     let amount =  Math.min(speed, Math.max(-speed, speed * o.gamma));
+                   player.body.velocity.x = amount
                    player.body.angularVelocity += amount
 
                  }
