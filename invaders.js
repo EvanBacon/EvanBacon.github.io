@@ -3,13 +3,13 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: p
 
 function preload() {
 
-    game.load.image('bullet', 'assets/games/invaders/bullet.png');
-    game.load.image('enemyBullet', 'assets/games/invaders/enemy-bullet.png');
-    game.load.spritesheet('invader', 'assets/games/invaders/invader32x32x4.png', 32, 32);
-    game.load.image('ship', 'assets/games/invaders/player.png');
-    game.load.spritesheet('kaboom', 'assets/games/invaders/explode.png', 128, 128);
-    game.load.image('starfield', 'assets/games/invaders/starfield.png');
-    game.load.image('background', 'assets/games/starstruck/background2.png');
+    game.load.image('bullet', 'invaders/bullet.png');
+    game.load.image('enemyBullet', 'invaders/enemy-bullet.png');
+    game.load.spritesheet('invader', 'invaders/invader32x32x4.png', 32, 32);
+    game.load.image('ship', 'invaders/player.png');
+    game.load.spritesheet('kaboom', 'invaders/explode.png', 128, 128);
+    game.load.image('starfield', 'invaders/starfield.png');
+    game.load.image('background', 'starstruck/background2.png');
 
 }
 
@@ -82,7 +82,7 @@ function create() {
     stateText.anchor.setTo(0.5, 0.5);
     stateText.visible = false;
 
-    for (var i = 0; i < 3; i++) 
+    for (var i = 0; i < 3; i++)
     {
         var ship = lives.create(game.world.width - 100 + (30 * i), 60, 'ship');
         ship.anchor.setTo(0.5, 0.5);
@@ -98,7 +98,7 @@ function create() {
     //  And some controls to play the game with
     cursors = game.input.keyboard.createCursorKeys();
     fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-    
+
 }
 
 function createAliens () {
@@ -216,7 +216,7 @@ function collisionHandler (bullet, alien) {
 }
 
 function enemyHitsPlayer (player,bullet) {
-    
+
     bullet.kill();
 
     live = lives.getFirstAlive();
@@ -262,7 +262,7 @@ function enemyFires () {
 
     if (enemyBullet && livingEnemies.length > 0)
     {
-        
+
         var random=game.rnd.integerInRange(0,livingEnemies.length-1);
 
         // randomly select one of them
@@ -305,7 +305,7 @@ function resetBullet (bullet) {
 function restart () {
 
     //  A new level starts
-    
+
     //resets the life count
     lives.callAll('revive');
     //  And brings the aliens back from the dead :)
