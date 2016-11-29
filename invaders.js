@@ -7,7 +7,22 @@ $(function() {
   var game = new Phaser.Game(width, height , Phaser.WEBGL, 'phaser-example', { preload: preload, create: create, update: update, render: render });
   // game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
   // game.stage.scaleMode = Phaser.ScaleManager.SHOW_ALL; //resize your window to see the stage resize toogame.stage.scale.setShowAll();game.stage.scale.refresh();
+  var player;
 
+
+  let speed = 200;
+      gyro.frequency = 10;
+    		// start gyroscope detection
+              gyro.startTracking((o) => {
+                   // updating player velocity
+                   if (player != undefined) {
+                     let amount =  Math.min(speed, Math.max(-speed, o.gamma/20));
+                   player.body.velocity.x += amount
+                   player.body.angularVelocity += amount
+
+                 }
+                  //  player.body.velocity.y += o.beta/20;
+              });
 
   function resizeGame() {
     var height = $(window).height();
@@ -41,7 +56,6 @@ $(function() {
 
   }
 
-  var player;
   var aliens;
   var bullets;
   var bulletTime = 0;
@@ -133,14 +147,6 @@ $(function() {
     fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 
-
-    gyro.frequency = 10;
-  		// start gyroscope detection
-            gyro.startTracking(function(o) {
-                 // updating player velocity
-                 player.body.velocity.x += o.gamma/20;
-                //  player.body.velocity.y += o.beta/20;
-            });
 
 
   }
@@ -278,18 +284,20 @@ $(function() {
       let rotationSpeed = 200;
 
       if (game.input.pointer1.isDown) {
-        if (game.input.pointer1.x < game.width/2) {
-          player.body.velocity.x = -speed;
-          player.body.angularVelocity = -rotationSpeed;
-        } else if (game.input.pointer1.x > game.width/2) {
-          player.body.angularVelocity = rotationSpeed;
+        fireBullet();
 
-          player.body.velocity.x = speed;
-        } else {
-          player.body.angularVelocity = 0;
-        }
+        // if (game.input.pointer1.x < game.width/2) {
+        //   player.body.velocity.x = -speed;
+        //   player.body.angularVelocity = -rotationSpeed;
+        // } else if (game.input.pointer1.x > game.width/2) {
+        //   player.body.angularVelocity = rotationSpeed;
+        //
+        //   player.body.velocity.x = speed;
+        // } else {
+        //   player.body.angularVelocity = 0;
+        // }
       } else {
-        player.body.angularVelocity = 0;
+        // player.body.angularVelocity = 0;
 
       }
 
