@@ -114,7 +114,7 @@ Main.prototype = {
 	},
 
 	swapTiles: function(){
-
+		let time = 600;
 	    var me = this;
 	    if(me.activeTile1 && me.activeTile2){
 
@@ -124,8 +124,8 @@ Main.prototype = {
 	        me.tileGrid[tile1Pos.x][tile1Pos.y] = me.activeTile2;
 	        me.tileGrid[tile2Pos.x][tile2Pos.y] = me.activeTile1;
 
-	        me.game.add.tween(me.activeTile1).to({x:tile2Pos.x * me.tileWidth + (me.tileWidth/2), y:tile2Pos.y * me.tileHeight + (me.tileHeight/2)}, 200, Phaser.Easing.Linear.In, true);
-	        me.game.add.tween(me.activeTile2).to({x:tile1Pos.x * me.tileWidth + (me.tileWidth/2), y:tile1Pos.y * me.tileHeight + (me.tileHeight/2)}, 200, Phaser.Easing.Linear.In, true);
+	        me.game.add.tween(me.activeTile1).to({x:tile2Pos.x * me.tileWidth + (me.tileWidth/2), y:tile2Pos.y * me.tileHeight + (me.tileHeight/2)}, time, Phaser.Easing.Linear.In, true);
+	        me.game.add.tween(me.activeTile2).to({x:tile1Pos.x * me.tileWidth + (me.tileWidth/2), y:tile1Pos.y * me.tileHeight + (me.tileHeight/2)}, time, Phaser.Easing.Linear.In, true);
 
 	        me.activeTile1 = me.tileGrid[tile1Pos.x][tile1Pos.y];
 	        me.activeTile2 = me.tileGrid[tile2Pos.x][tile2Pos.y];
@@ -151,7 +151,7 @@ Main.prototype = {
 		}	else {
 			//Else no match on tile swap, so the tiles animate to reset their position
 			me.swapTiles();
-			me.game.time.events.add(500, function (){
+			me.game.time.events.add(700, function (){
 				me.tileUp();
 				me.canMove = true;
 			});
@@ -344,6 +344,6 @@ Main.prototype = {
 	incrementScore: function(){
 	    var me = this;
 	    me.score += 100;
-	    me.scoreLabel.text = "BANDS: $" + me.score;      
+	    me.scoreLabel.text = "BANDS: $" + me.score;
 	},
 };

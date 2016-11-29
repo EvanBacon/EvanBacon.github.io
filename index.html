@@ -17,11 +17,13 @@
     <style type="text/css">
         body {
             margin: 0;
+						padding: 0;
         }
     </style>
 
     <script type="text/javascript">
 		(function() {
+
 
 				//Create a new game that fills the screen
 				game = new Phaser.Game(600, 670, Phaser.AUTO, 'phaser-container');
@@ -35,6 +37,22 @@
 
 				//Start the first state
 				game.state.start("Boot");
+
+				function resizeGame() {
+					var height = $(window).height();
+					var width = $(window).width();
+					game.width = width;
+					game.height = height;
+					game.stage.bounds.width = width;
+					game.stage.bounds.height = height;
+					if (game.renderType === Phaser.WEBGL){
+						game.renderer.resize(width, height);
+					}
+				}
+
+					$(window).resize(function() {
+						window.resizeGame();
+					});
 
 		})();
     </script>
