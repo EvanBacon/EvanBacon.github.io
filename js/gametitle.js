@@ -3,7 +3,7 @@ var GameTitle = function(game){};
 GameTitle.prototype = {
 
 	create: function(){
-		this.game.stage.backgroundColor = "#444"
+		this.game.stage.backgroundColor = "#fff"
 		var title = game.add.sprite(game.width / 2, 60, "gametitle");
 		title.scale.setTo(0.8, 0.8);
 		title.anchor.set(0.5);
