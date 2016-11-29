@@ -17,7 +17,7 @@ $(function() {
                    // updating player velocity
                    if (player != undefined) {
                      let amount =  Math.min(speed, Math.max(-speed, o.gamma/20));
-                   player.body.velocity.x += amount * 5
+                   player.body.velocity.x += amount
                    player.body.angularVelocity += amount
 
                  }
@@ -277,8 +277,15 @@ $(function() {
 
     if (player.alive)
     {
+
+      if (player.position.x > game.width) {
+        player.position.x = 0;
+      } else if (player.position.x < 0) {
+        player.position.x = game.width;
+
+      }
       //  Reset the player, then check for movement keys
-      player.body.velocity.setTo(0, 0);
+      // player.body.velocity.setTo(0, 0);
 
       let speed = 200;
       let rotationSpeed = 200;
