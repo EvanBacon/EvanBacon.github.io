@@ -18,7 +18,7 @@ $(function() {
                    if (player != undefined) {
                      player.body.velocity.setTo(0, 0);
 
-                     let amount =  Math.min(speed, Math.max(-speed, speed * o.gamma));
+                     let amount =  Math.min(speed, Math.max(-speed, speed * Math.floor(o.gamma/20)));
                    player.body.velocity.x = amount
                    player.body.angularVelocity += amount
 
@@ -48,6 +48,7 @@ $(function() {
     // game.load.image('bullet', 'invaders/bullet.png');
     game.load.image('bullet', 'invaders/cone.png');
     game.load.image('enemyBullet', 'invaders/enemy-bullet.png');
+    game.load.image('invader', 'invaders/drake.png');
     game.load.image('invader', 'invaders/drake.png');
 
     // game.load.spritesheet('invader', 'invaders/invader32x32x4.png', 32, 32);
