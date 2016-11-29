@@ -77,24 +77,24 @@ Main.prototype = {
   },
 
 	addTile: function(x, y){
-
-	    var me = this;
+	 
+	    var me = this;	 
 	    //Randomly selects each tile before adding them to the grid
-	    var tileToAdd = me.tileTypes[me.random.integerInRange(0, me.tileTypes.length - 1)];
+	    var tileToAdd = me.tileTypes[me.random.integerInRange(0, me.tileTypes.length - 1)]; 
 
 	 		//Drops at the correct x position but initializes at the top of the screen
 	    var tile = me.tiles.create((x * me.tileWidth) + me.tileWidth / 2, 0, tileToAdd);
 	    tile.scale.setTo(0.5, 0.5);
-
+	 		
 	    me.game.add.tween(tile).to({y:y*me.tileHeight+(me.tileHeight/2)}, 500, Phaser.Easing.Linear.In, true)
-
+	 		
 	    tile.anchor.setTo(0.5, 0.5);
 	    tile.inputEnabled = true;
 	    tile.tileType = tileToAdd;
 	    tile.events.onInputDown.add(me.tileDown, me);
-
+	 
 	    return tile;
-
+	 
 	},
 
 	tileDown: function (tile, pointer) {
@@ -114,24 +114,24 @@ Main.prototype = {
 	},
 
 	swapTiles: function(){
-
+	 
 	    var me = this;
 	    if(me.activeTile1 && me.activeTile2){
-
+	 
 	        var tile1Pos = {x:(me.activeTile1.x - me.tileWidth / 2) / me.tileWidth, y:(me.activeTile1.y - me.tileHeight / 2) / me.tileHeight};
 	        var tile2Pos = {x:(me.activeTile2.x - me.tileWidth / 2) / me.tileWidth, y:(me.activeTile2.y - me.tileHeight / 2) / me.tileHeight};
-
+	 
 	        me.tileGrid[tile1Pos.x][tile1Pos.y] = me.activeTile2;
 	        me.tileGrid[tile2Pos.x][tile2Pos.y] = me.activeTile1;
-
+	 				
 	        me.game.add.tween(me.activeTile1).to({x:tile2Pos.x * me.tileWidth + (me.tileWidth/2), y:tile2Pos.y * me.tileHeight + (me.tileHeight/2)}, 200, Phaser.Easing.Linear.In, true);
 	        me.game.add.tween(me.activeTile2).to({x:tile1Pos.x * me.tileWidth + (me.tileWidth/2), y:tile1Pos.y * me.tileHeight + (me.tileHeight/2)}, 200, Phaser.Easing.Linear.In, true);
-
+	 
 	        me.activeTile1 = me.tileGrid[tile1Pos.x][tile1Pos.y];
 	        me.activeTile2 = me.tileGrid[tile2Pos.x][tile2Pos.y];
-
+	 
 	    }
-
+	 
 	},
 
 	checkMatch: function () {
@@ -199,7 +199,7 @@ Main.prototype = {
 			groups = [];
 			//Iterate through each gem in a column
 			for (var k = 0; k < tempArr.length; k++) {
-				if (k < tempArr.length - 2)
+				if (k < tempArr.length - 2) 
 					if (tileGrid[k][l] && tileGrid[k+1][l] && tileGrid[k+2][l]) {
 						if (tileGrid[k][l].tileType === tileGrid[k+1][l].tileType && tileGrid[k+1][l].tileType === tileGrid[k+2][l].tileType) {
 							if (groups.length > 0) {
@@ -301,7 +301,7 @@ Main.prototype = {
 		return tempGrid;
 	},
 
-	resetTile: function () {
+	resetTile: function () {	
 		var me = this;
 		for (var i = 0; i < me.tileGrid.length; i++) {
 			for (var j = me.tileGrid[i].length - 1; j > 0; j--) {
@@ -335,15 +335,16 @@ Main.prototype = {
 	createScore: function(){
     var me = this;
     var scoreFont = "50px Helvetica";
-
-    me.scoreLabel = me.game.add.text((Math.floor(me.tileGrid[0].length / 2) * me.tileWidth), me.tileGrid.length * me.tileHeight, "Your debt: $0", {font: scoreFont, fill: "#333"});
+ 		
+    me.scoreLabel = me.game.add.text((Math.floor(me.tileGrid[0].length / 2) * me.tileWidth), me.tileGrid.length * me.tileHeight, "Your debt: $0", {font: scoreFont, fill: "#333"}); 
     me.scoreLabel.anchor.setTo(0.5, 0);
     me.scoreLabel.align = 'center';
 	},
-
+	 
 	incrementScore: function(){
 	    var me = this;
-	    me.score += 100;
-	    me.scoreLabel.text = "BANDS: $" + me.score;      
+	    me.score += 100;   
+	    me.scoreLabel.text = "Your debt: $" + me.score;      
 	},
 };
+
