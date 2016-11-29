@@ -20,7 +20,7 @@ $(function() {
 
                      let amount =  Math.min(speed, Math.max(-speed, speed * Math.floor(o.gamma/20)));
                    player.body.velocity.x = amount
-                   player.body.angularVelocity += amount
+                   player.body.angularVelocity = amount/2
 
                  }
                   //  player.body.velocity.y += o.beta/20;
@@ -92,6 +92,11 @@ $(function() {
     bullets.createMultiple(30, 'bullet');
     bullets.setAll('anchor.x', 0.5);
     bullets.setAll('anchor.y', 1);
+
+    let bulletHeight = Math.min(game.width, game.height) * 0.1;
+    bullets.setAll('width', bulletHeight * 0.2);
+    bullets.setAll('height', bulletHeight);
+
     bullets.setAll('outOfBoundsKill', true);
     bullets.setAll('checkWorldBounds', true);
 
@@ -102,6 +107,11 @@ $(function() {
     enemyBullets.createMultiple(30, 'enemyBullet');
     enemyBullets.setAll('anchor.x', 0.5);
     enemyBullets.setAll('anchor.y', 1);
+
+    enemyBullets.setAll('width', bulletHeight * 0.6);
+    enemyBullets.setAll('height',  bulletHeight * 0.6);
+
+
     enemyBullets.setAll('outOfBoundsKill', true);
     enemyBullets.setAll('checkWorldBounds', true);
 
