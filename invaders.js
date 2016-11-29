@@ -1,5 +1,28 @@
 
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+
+$(function() {
+  var height = $(window).height();
+  var width = $(window).width();
+
+  var game = new Phaser.Game(width, height, Phaser.WEBGL, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+
+
+function resizeGame() {
+  var height = $(window).height();
+  var width = $(window).width();
+  game.width = width;
+  game.height = height;
+  game.stage.bounds.width = width;
+  game.stage.bounds.height = height;
+  if (game.renderType === Phaser.WEBGL){
+    game.renderer.resize(width, height);
+  }
+}
+
+
+  $(window).resize(function() {
+    resizeGame();
+  });
 
 function preload() {
 
@@ -9,7 +32,7 @@ function preload() {
     game.load.image('ship', 'invaders/player.png');
     game.load.spritesheet('kaboom', 'invaders/explode.png', 128, 128);
     game.load.image('starfield', 'invaders/starfield.png');
-    game.load.image('background', 'starstruck/background2.png');
+    game.load.image('background', 'invaders/background.png');
 
 }
 
@@ -33,9 +56,12 @@ var livingEnemies = [];
 function create() {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
+    var height = $(window).height();
+    var width = $(window).width();
+
 
     //  The scrolling starfield background
-    starfield = game.add.tileSprite(0, 0, 800, 600, 'starfield');
+    starfield = game.add.tileSprite(0, 0, width, height, 'starfield');
 
     //  Our bullet group
     bullets = game.add.group();
@@ -206,7 +232,7 @@ function collisionHandler (bullet, alien) {
         scoreText.text = scoreString + score;
 
         enemyBullets.callAll('kill',this);
-        stateText.text = " You Won, \n Click to restart";
+        stateText.text = " You Won, \n Tap to restart";
         stateText.visible = true;
 
         //the "click to restart" handler
@@ -237,7 +263,7 @@ function enemyHitsPlayer (player,bullet) {
         player.kill();
         enemyBullets.callAll('kill');
 
-        stateText.text=" GAME OVER \n Click to restart";
+        stateText.text=" GAME OVER \n Tap to restart";
         stateText.visible = true;
 
         //the "click to restart" handler
@@ -318,3 +344,4 @@ function restart () {
     stateText.visible = false;
 
 }
+});
