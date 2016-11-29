@@ -17,7 +17,7 @@ $(function() {
                    // updating player velocity
                    if (player != undefined) {
                      let amount =  Math.min(speed, Math.max(-speed, o.gamma/20));
-                   player.body.velocity.x += amount
+                   player.body.velocity.x += amount * 5
                    player.body.angularVelocity += amount
 
                  }
