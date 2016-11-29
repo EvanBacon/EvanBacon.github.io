@@ -132,6 +132,17 @@ $(function() {
     cursors = game.input.keyboard.createCursorKeys();
     fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
+
+
+    gyro.frequency = 10;
+  		// start gyroscope detection
+            gyro.startTracking(function(o) {
+                 // updating player velocity
+                 player.body.velocity.x += o.gamma/20;
+                //  player.body.velocity.y += o.beta/20;
+            });
+
+
   }
 
   function createAliens () {
