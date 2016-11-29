@@ -132,10 +132,18 @@ $(function() {
     //  The score
     scoreString = 'Score : ';
     scoreText = game.add.text(10, 10, scoreString + score, { font: '34px Arial', fill: '#fff' });
+    scoreText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2);
 
     //  Lives
     lives = game.add.group();
-    game.add.text(game.world.width - 120, 10, 'Lives : ', { font: '34px Arial', fill: '#fff' });
+    livesText = game.add.text(game.world.width - 120, 10, 'Lives : ', { font: '34px Arial', fill: '#fff' });
+    livesText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2);
+
+
+    title = game.add.text(game.world.width/2, 40, 'GUCCI PEW', {  font: "bold 48px Arial", fill: '#fff',  align: "center", boundsAlignV: "middle" });
+    title.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
+    title.anchor.set(0.5);
+
 
     //  Text
     stateText = game.add.text(game.world.centerX,game.world.centerY,' ', { font: '84px Arial', fill: '#fff' });
