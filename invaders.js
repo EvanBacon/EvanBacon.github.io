@@ -53,11 +53,13 @@ $(function() {
     game.load.image('future', 'invaders/future.png');
     game.load.image('nicki', 'invaders/nicki.png');
 
-    game.load.audio('gucci_1', 'invaders/audio/gucci_1.ogg');
-    game.load.audio('gucci_2', 'invaders/audio/gucci_2.ogg');
-    game.load.audio('gucci_3', 'invaders/audio/gucci_3.ogg');
-    game.load.audio('gucci_4', 'invaders/audio/gucci_4.ogg');
-    game.load.audio('gucci_5', 'invaders/audio/gucci_5.ogg');
+    game.load.audio('brr', 'invaders/audio/brr.mp3');
+
+    // game.load.audio('gucci_1', 'invaders/audio/gucci_1.ogg');
+    // game.load.audio('gucci_2', 'invaders/audio/gucci_2.ogg');
+    // game.load.audio('gucci_3', 'invaders/audio/gucci_3.ogg');
+    // game.load.audio('gucci_4', 'invaders/audio/gucci_4.ogg');
+    // game.load.audio('gucci_5', 'invaders/audio/gucci_5.ogg');
 
 
 
@@ -125,11 +127,13 @@ $(function() {
     bullets.setAll('outOfBoundsKill', true);
     bullets.setAll('checkWorldBounds', true);
 
-    gucciSound['1'] = game.add.audio('gucci_1');
-    gucciSound['2'] = game.add.audio('gucci_2');
-    gucciSound['3'] = game.add.audio('gucci_3');
-    gucciSound['4'] = game.add.audio('gucci_4');
-    gucciSound['5'] = game.add.audio('gucci_5');
+    gucciSound['1'] = game.add.audio('brr');
+
+    // gucciSound['1'] = game.add.audio('gucci_1');
+    // gucciSound['2'] = game.add.audio('gucci_2');
+    // gucciSound['3'] = game.add.audio('gucci_3');
+    // gucciSound['4'] = game.add.audio('gucci_4');
+    // gucciSound['5'] = game.add.audio('gucci_5');
 
 
     // The enemy's bullets
