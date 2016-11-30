@@ -49,7 +49,7 @@ $(function() {
     game.load.image('bullet', 'invaders/cone.png');
     // game.load.image('enemyBullet', 'invaders/enemy-bullet.png');
     game.load.image('enemyBullet', 'invaders/disc.png');
-    game.load.image('invader', 'invaders/drake.png');
+    game.load.image('drake', 'invaders/drake.png');
     game.load.image('future', 'invaders/future.png');
     game.load.image('nicki', 'invaders/nicki.png');
 
@@ -77,6 +77,16 @@ $(function() {
   var firingTimer = 0;
   var stateText;
   var livingEnemies = [];
+
+  function showTextAtPoint(data) {
+
+    text = game.add.text(data.x, data.y, data.text, { font: '30px Arial', fill: data.fill ,align: "center", boundsAlignV: "middle"  });
+    text.anchor.set(0.5);
+
+    time = 500;
+    game.add.tween(text).to({y: data.y - 40}, time, Phaser.Easing.Linear.None, true);
+    game.add.tween(text).to({alpha: 0}, time, Phaser.Easing.Linear.None, true);
+  }
 
   function create() {
 
@@ -143,7 +153,7 @@ $(function() {
     livesText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2);
 
 
-    title = game.add.text(game.world.width/2, 40, 'GUCCI PEW', {  font: "bold 48px Arial", fill: '#fff',  align: "center", boundsAlignV: "middle" });
+    title = game.add.text(game.world.width/2, game.world.height - 40, 'GUCCI PEW', {  font: "bold 48px Arial", fill: '#fff',  align: "center", boundsAlignV: "middle" });
     title.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
     title.anchor.set(0.5);
 
@@ -229,7 +239,19 @@ let liveSize = Math.min(game.width, game.height) * 0.06;
               [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
             ],
             [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+              [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+              [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+              [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+              [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+              [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0],
+              [0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+              [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+              [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+              [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+              [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+              [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0],
     [0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0],
     [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
@@ -256,7 +278,7 @@ let liveSize = Math.min(game.width, game.height) * 0.06;
     }
 
     let config = configGen();
-    let invaders = ['future', 'invader', 'nicki'];
+    let invaders = ['future', 'drake', 'nicki'];
     let size =  Math.min(game.width, game.height) * 0.08;
     for (var row = 0; row < config.length; row++)
     {
@@ -270,7 +292,7 @@ let liveSize = Math.min(game.width, game.height) * 0.06;
         let index = Math.floor((Math.random() * (invaders.length)) + 0);
 
         let texture = invaders[index]
-        var alien = aliens.create(col * size, row * size, texture);
+        var alien = aliens.create(col * size, -(row * size), texture);
         alien.width = size;
         alien.height = size;
         alien.anchor.setTo(0.5, 0.5);
@@ -302,8 +324,9 @@ let liveSize = Math.min(game.width, game.height) * 0.06;
   }
 
   function descend() {
+    let size =  Math.min(game.width, game.height) * 0.08;
 
-    aliens.y += 10;
+    aliens.y += size;
 
   }
   function update() {
@@ -380,6 +403,7 @@ let liveSize = Math.min(game.width, game.height) * 0.06;
 
   }
 
+  textIndex = 0;
   function collisionHandler (bullet, alien) {
 
     //  When a bullet hits an alien we kill them both
@@ -389,6 +413,17 @@ let liveSize = Math.min(game.width, game.height) * 0.06;
     //  Increase the score
     score += 20;
     scoreText.text = scoreString + score;
+
+
+
+    let phrases = ['IZ GUCCI!', 'YEAAAHH', 'BURR', 'DAYUM', 'HUUH!', 'WIZOP!', 'GUWOP'];
+    let index = Math.floor((Math.random() * phrases.length) + 0);
+
+textIndex += 1;
+
+    showTextAtPoint({x: (player.position.x - 150) + ((textIndex % 3) * 150), y: player.position.y, text: phrases[index], fill: '#fff'});
+
+
 
     //  And create an explosion :)
     var explosion = explosions.getFirstExists(false);
@@ -422,6 +457,8 @@ let liveSize = Math.min(game.width, game.height) * 0.06;
       live.kill();
     }
 
+    showTextAtPoint({x: player.position.x, y: player.position.y, text: 'WIZOP', fill: '#aa1515'});
+
     //  And create an explosion :)
     var explosion = explosions.getFirstExists(false);
     explosion.reset(player.body.x, player.body.y);
@@ -443,6 +480,13 @@ let liveSize = Math.min(game.width, game.height) * 0.06;
 
   }
 
+  let allEnemyPhrases = {
+    future: ['FUUSH', 'HENDRIX', 'SUPA FUTURE', 'AYY'],
+    drake: ['OVO', 'YOUNG MONEY', 'WORST'],
+    nicki: ['HO']
+  };
+
+
   function enemyFires () {
 
     //  Grab the first bullet we can from the pool
@@ -462,9 +506,18 @@ let liveSize = Math.min(game.width, game.height) * 0.06;
 
       var random=game.rnd.integerInRange(0,livingEnemies.length-1);
 
+
+
       // randomly select one of them
       var shooter=livingEnemies[random];
       // And fire the bullet from this enemy
+
+      let enemyPhrases = allEnemyPhrases[shooter.key];
+      let index = Math.floor((Math.random() * enemyPhrases.length) + 0);
+      console.log(enemyPhrases[index]);
+      showTextAtPoint({x: shooter.position.x, y: shooter.position.y, text: enemyPhrases[index], fill: '#aa1515'});
+
+
       enemyBullet.reset(shooter.body.x, shooter.body.y);
 
       game.physics.arcade.moveToObject(enemyBullet,player,120);
