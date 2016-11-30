@@ -47,9 +47,12 @@ $(function() {
 
     // game.load.image('bullet', 'invaders/bullet.png');
     game.load.image('bullet', 'invaders/cone.png');
-    game.load.image('enemyBullet', 'invaders/enemy-bullet.png');
+    // game.load.image('enemyBullet', 'invaders/enemy-bullet.png');
+    game.load.image('enemyBullet', 'invaders/disc.png');
     game.load.image('invader', 'invaders/drake.png');
-    game.load.image('invader', 'invaders/drake.png');
+    game.load.image('future', 'invaders/future.png');
+    game.load.image('nicki', 'invaders/nicki.png');
+
 
     // game.load.spritesheet('invader', 'invaders/invader32x32x4.png', 32, 32);
     game.load.image('ship', 'invaders/gucci.png');
@@ -94,7 +97,7 @@ $(function() {
     bullets.setAll('anchor.y', 1);
 
     let bulletHeight = Math.min(game.width, game.height) * 0.1;
-    bullets.setAll('width', bulletHeight * 0.2);
+    bullets.setAll('width', bulletHeight * 0.6);
     bullets.setAll('height', bulletHeight);
 
     bullets.setAll('outOfBoundsKill', true);
@@ -145,17 +148,25 @@ $(function() {
     title.anchor.set(0.5);
 
 
+    game.add.text(8, game.height - 30, 'by Evan Bacon', {  font: "20px Arial", fill: '#fff',  align: "center", boundsAlignV: "middle" });
+
+
+
     //  Text
     stateText = game.add.text(game.world.centerX,game.world.centerY,' ', { font: '84px Arial', fill: '#fff' });
     stateText.anchor.setTo(0.5, 0.5);
     stateText.visible = false;
 
+
+let liveSize = Math.min(game.width, game.height) * 0.06;
     for (var i = 0; i < 3; i++)
     {
-      var ship = lives.create(game.world.width - 100 + (30 * i), 60, 'ship');
+      var ship = lives.create(game.world.width - (liveSize * (i + 0.5) ) - 20, 80, 'ship');
       ship.anchor.setTo(0.5, 0.5);
       ship.angle = 90;
       ship.alpha = 0.4;
+      ship.width = liveSize;
+      ship.height = liveSize;
     }
 
     //  An explosion pool
@@ -245,7 +256,7 @@ $(function() {
     }
 
     let config = configGen();
-
+    let invaders = ['future', 'invader', 'nicki'];
     let size =  Math.min(game.width, game.height) * 0.08;
     for (var row = 0; row < config.length; row++)
     {
@@ -255,7 +266,11 @@ $(function() {
         let colVal = rowVal[col];
 
         if (colVal == 0) continue;
-        var alien = aliens.create(col * size, row * size, 'invader');
+
+        let index = Math.floor((Math.random() * (invaders.length)) + 0);
+
+        let texture = invaders[index]
+        var alien = aliens.create(col * size, row * size, texture);
         alien.width = size;
         alien.height = size;
         alien.anchor.setTo(0.5, 0.5);
@@ -388,6 +403,7 @@ $(function() {
       enemyBullets.callAll('kill',this);
       stateText.text = " You Won, \n Tap to restart";
       stateText.visible = true;
+      stateText.anchor.set(0.5);
 
       //the "click to restart" handler
       game.input.onTap.addOnce(restart,this);
@@ -419,6 +435,7 @@ $(function() {
 
       stateText.text=" GAME OVER \n Tap to restart";
       stateText.visible = true;
+      stateText.anchor.set(0.5);
 
       //the "click to restart" handler
       game.input.onTap.addOnce(restart,this);
