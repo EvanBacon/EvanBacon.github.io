@@ -53,6 +53,13 @@ $(function() {
     game.load.image('future', 'invaders/future.png');
     game.load.image('nicki', 'invaders/nicki.png');
 
+    game.load.audio('gucci_1', 'invaders/audio/gucci_1.ogg');
+    game.load.audio('gucci_2', 'invaders/audio/gucci_2.ogg');
+    game.load.audio('gucci_3', 'invaders/audio/gucci_3.ogg');
+    game.load.audio('gucci_4', 'invaders/audio/gucci_4.ogg');
+    game.load.audio('gucci_5', 'invaders/audio/gucci_5.ogg');
+
+
 
     // game.load.spritesheet('invader', 'invaders/invader32x32x4.png', 32, 32);
     game.load.image('ship', 'invaders/gucci.png');
@@ -61,6 +68,7 @@ $(function() {
     game.load.image('background', 'invaders/background.png');
 
   }
+  let gucciSound = {};
 
   var aliens;
   var bullets;
@@ -79,8 +87,12 @@ $(function() {
   var livingEnemies = [];
 
   function showTextAtPoint(data) {
+    let font = data.font;
+    if (font == undefined) {
+      font = '30px Arial';
+    }
 
-    text = game.add.text(data.x, data.y, data.text, { font: '30px Arial', fill: data.fill ,align: "center", boundsAlignV: "middle"  });
+    text = game.add.text(data.x, data.y, data.text, { font: font, fill: data.fill ,align: "center", boundsAlignV: "middle"  });
     text.anchor.set(0.5);
 
     time = 1000;
@@ -112,6 +124,13 @@ $(function() {
 
     bullets.setAll('outOfBoundsKill', true);
     bullets.setAll('checkWorldBounds', true);
+
+    gucciSound['1'] = game.add.audio('gucci_1');
+    gucciSound['2'] = game.add.audio('gucci_2');
+    gucciSound['3'] = game.add.audio('gucci_3');
+    gucciSound['4'] = game.add.audio('gucci_4');
+    gucciSound['5'] = game.add.audio('gucci_5');
+
 
     // The enemy's bullets
     enemyBullets = game.add.group();
@@ -547,6 +566,8 @@ textIndex += 1;
 
     showTextAtPoint({x: (player.position.x - 150) + ((textIndex % 3) * 150), y: player.position.y, text: phrases[index], fill: '#fff'});
 
+    let keys = Object.keys(gucciSound);
+    gucciSound[keys[ Math.floor((Math.random() * keys.length) + 0)]].play();
 
 
     //  And create an explosion :)
@@ -628,7 +649,7 @@ textIndex += 1;
     if (enemyBullet && livingEnemies.length > 0)
     {
 
-      var random=game.rnd.integerInRange(0,livingEnemies.length-1);
+      var random=game.rnd.integerInRange(0,Math.min(12, livingEnemies.length-1));
 
 
 
@@ -639,7 +660,7 @@ textIndex += 1;
       let enemyPhrases = allEnemyPhrases[shooter.key];
       let index = Math.floor((Math.random() * enemyPhrases.length) + 0);
       console.log(enemyPhrases[index]);
-      showTextAtPoint({x: shooter.position.x, y: shooter.position.y, text: enemyPhrases[index], fill: '#aa1515'});
+      showTextAtPoint({x: shooter.body.x, y: shooter.body.y, text: enemyPhrases[index], fill: '#aa1515', font: '50px Arial'});
 
 
       enemyBullet.reset(shooter.body.x, shooter.body.y);
