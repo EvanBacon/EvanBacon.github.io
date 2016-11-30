@@ -9,6 +9,9 @@ $(function() {
   // game.stage.scaleMode = Phaser.ScaleManager.SHOW_ALL; //resize your window to see the stage resize toogame.stage.scale.setShowAll();game.stage.scale.refresh();
   var player;
 
+  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+   // some code..
+
 
   let speed = 200;
       gyro.frequency = 10;
@@ -25,7 +28,7 @@ $(function() {
                  }
                   //  player.body.velocity.y += o.beta/20;
               });
-
+}
   function resizeGame() {
     var height = $(window).height();
     var width = $(window).width();
@@ -491,36 +494,26 @@ let liveSize = Math.min(game.width, game.height) * 0.06;
 
       }
       //  Reset the player, then check for movement keys
-      // player.body.velocity.setTo(0, 0);
+      player.body.velocity.setTo(0, 0);
 
       let speed = 200;
       let rotationSpeed = 200;
 
       if (game.input.pointer1.isDown) {
         fireBullet();
-
-        // if (game.input.pointer1.x < game.width/2) {
-        //   player.body.velocity.x = -speed;
-        //   player.body.angularVelocity = -rotationSpeed;
-        // } else if (game.input.pointer1.x > game.width/2) {
-        //   player.body.angularVelocity = rotationSpeed;
-        //
-        //   player.body.velocity.x = speed;
-        // } else {
-        //   player.body.angularVelocity = 0;
-        // }
-      } else {
-        // player.body.angularVelocity = 0;
-
       }
 
       if (cursors.left.isDown)
       {
+        player.body.angularVelocity = -rotationSpeed / 2
         player.body.velocity.x = -speed;
       }
       else if (cursors.right.isDown)
       {
+        player.body.angularVelocity = rotationSpeed / 2
         player.body.velocity.x = speed;
+      } else {
+        player.body.angularVelocity = 0;
       }
 
       //  Firing?
