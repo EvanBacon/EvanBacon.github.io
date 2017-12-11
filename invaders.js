@@ -54,6 +54,8 @@ $(function() {
   });
 
   function preload() {
+    game.load.video('lemonade', 'invaders/media/lemonade.mp4');
+
     // game.load.image('bullet', 'invaders/bullet.png');
     game.load.image('bullet', 'invaders/cone.png');
     // game.load.image('enemyBullet', 'invaders/enemy-bullet.png');
@@ -125,8 +127,24 @@ $(function() {
     var height = $(window).height();
     var width = $(window).width();
 
+    const video = game.add.video('lemonade');
+
+    // video.onPlay.addOnce(start, this);
+
+    sprite = video.addToWorld(
+      0,
+      0,
+      0,
+      0,
+      width / video.width,
+      height / video.height,
+    );
+    video.volume = 0.25;
+    video.play(true);
+
     //  The scrolling starfield background
     starfield = game.add.tileSprite(0, 0, width, height, 'starfield');
+    starfield.alpha = 0.5;
 
     //  Our bullet group
     bullets = game.add.group();
@@ -733,7 +751,7 @@ $(function() {
       enemyBullet.body.setSize(_size, _size);
       enemyBullet.width = enemyBullet.height = _size;
       game.physics.arcade.moveToObject(enemyBullet, player, 120);
-      firingTimer = game.time.now + 2000;
+      firingTimer = game.time.now + 200;
     }
   }
 
