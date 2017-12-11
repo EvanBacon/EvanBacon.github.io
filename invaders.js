@@ -81,8 +81,8 @@ $(function() {
     game.load.audio('brr', 'invaders/audio/brr.mp3');
 
     // game.load.audio('gucci_1', 'invaders/audio/gucci_1.ogg');
-    game.load.audio('gucci_2', 'invaders/audio/gucci_2.ogg');
-    game.load.audio('gucci_3', 'invaders/audio/gucci_3.ogg');
+    game.load.audio('gucci_2', 'invaders/audio/gucci_2.mp3');
+    game.load.audio('gucci_3', 'invaders/audio/gucci_3.mp3');
     // game.load.audio('gucci_4', 'invaders/audio/gucci_4.ogg');
     // game.load.audio('gucci_5', 'invaders/audio/gucci_5.ogg');
 
