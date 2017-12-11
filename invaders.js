@@ -54,8 +54,14 @@ $(function() {
   });
 
   function preload() {
-    game.load.video('lemonade', 'invaders/media/lemonade.mp4');
 
+    if (
+      !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
+    game.load.video('lemonade', 'invaders/media/lemonade.mp4');
+    }
     // game.load.image('bullet', 'invaders/bullet.png');
     game.load.image('bullet', 'invaders/cone.png');
     // game.load.image('enemyBullet', 'invaders/enemy-bullet.png');
@@ -132,6 +138,11 @@ $(function() {
     var height = $(window).height();
     var width = $(window).width();
 
+    if (
+      !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
     const video = game.add.video('lemonade');
 
     // video.onPlay.addOnce(start, this);
@@ -146,7 +157,7 @@ $(function() {
     );
     video.volume = 0.25;
     video.play(true);
-
+  }
     //  The scrolling starfield background
     starfield = game.add.tileSprite(0, 0, width, height, 'starfield');
     starfield.alpha = 0.5;
