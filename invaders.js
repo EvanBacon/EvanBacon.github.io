@@ -67,6 +67,11 @@ $(function() {
     game.load.image('takeoff', 'invaders/trap/takeoff.png');
     game.load.image('pump', 'invaders/trap/pump.png');
 
+    game.load.image('boat', 'invaders/trap/boat.png');
+    game.load.image('savage', 'invaders/trap/savage.png');
+    game.load.image('thug', 'invaders/trap/thug.png');
+    game.load.image('xxx', 'invaders/trap/xxx.png');
+
     game.load.audio('brr', 'invaders/audio/brr.mp3');
 
     // game.load.audio('gucci_1', 'invaders/audio/gucci_1.ogg');
@@ -478,7 +483,18 @@ $(function() {
     }
 
     let config = configGen();
-    let invaders = ['future', 'drake', 'nicki', 'quavo', 'takeoff', 'pump'];
+    let invaders = [
+      'future',
+      'drake',
+      'nicki',
+      'quavo',
+      'takeoff',
+      'pump',
+      'boat',
+      'savage',
+      'thug',
+      'xxx',
+    ];
     let size = Math.min(game.width, game.height) * 0.08;
     for (var row = 0; row < config.length; row++) {
       let rowVal = config[row];
@@ -710,6 +726,10 @@ $(function() {
     quavo: ['MAMA', 'MOMMY'],
     takeoff: ['IAINLEFT', 'DO IT LOOK LIKE', 'OFF BAD & BOOJIE'],
     pump: ['GUUCCII', 'ESKETIT'],
+    boat: ['BOAT', 'CELLO'],
+    savage: ['12345678', 'BANK ACCOUNT'],
+    xxx: ['LOOK AT ME'],
+    thug: ['*INAUDIBLE*', 'HARAMBE', 'YSL', 'SPLAT', 'SLIME'],
   };
 
   function enemyFires() {
@@ -751,7 +771,7 @@ $(function() {
       enemyBullet.body.setSize(_size, _size);
       enemyBullet.width = enemyBullet.height = _size;
       game.physics.arcade.moveToObject(enemyBullet, player, 120);
-      firingTimer = game.time.now + 200;
+      firingTimer = game.time.now + 300;
     }
   }
 
